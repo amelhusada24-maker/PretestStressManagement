@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pretest – Stress Management (Grade 9)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+<style>
+:root{--g1:#ffe1f0;--g2:#d8e8ff;--card:#ffffffee;--ink:#2b2350;--mute:#6b6590;--line:#e4def7;--ac:#7c3aed;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#2a1745;--g2:#0f2a45;--card:#241d40ee;--ink:#f2eeff;--mute:#b7aedb;--line:#3d3466;color-scheme:dark}}
+:root[data-theme="dark"]{--g1:#2a1745;--g2:#0f2a45;--card:#241d40ee;--ink:#f2eeff;--mute:#b7aedb;--line:#3d3466;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:linear-gradient(135deg,var(--g1),var(--g2)) fixed;color:var(--ink);font:16px/1.55 "Poppins",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:18px 14px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;font-weight:600;color:var(--mute);margin-bottom:8px}
+.chip{background:var(--ac);color:#fff;border-radius:99px;padding:3px 12px;transition:background .3s}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f472b6,#fb923c,#facc15,#34d399,#60a5fa,#a78bfa);border-radius:99px;transition:width .35s}
+.card{background:var(--card);border-radius:28px;padding:24px 20px;box-shadow:0 10px 30px #6d4bd22e;border-top:8px solid var(--ac);animation:pop .3s ease}
+.card.n{animation:none}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.em{font-size:2.4rem;line-height:1}
+h1{font-size:1.6rem;margin:8px 0 2px;line-height:1.25}
+h2{font-size:1.15rem;line-height:1.45;margin:10px 0 14px}
+.sub{color:var(--mute);margin:0 0 12px}
+.sc{background:var(--line);border-radius:16px;padding:10px 14px;font-style:italic;margin:0 0 12px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:transparent;color:var(--ink);border:2px solid var(--line);border-radius:18px;padding:11px 13px;margin:9px 0;font:inherit;font-weight:400;cursor:pointer;transition:transform .12s,border-color .12s}
+.opt:hover{border-color:var(--ac);transform:translateY(-1px)}
+.opt b{flex:none;width:32px;height:32px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.9rem}
+.opt.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.opt.on b{background:#ffffff40;color:#fff}
+ul.ins{margin:8px 0 16px;padding-left:20px;color:var(--mute)}
+label.f{display:block;font-size:.8rem;font-weight:600;color:var(--mute);margin:10px 0 0}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:transparent;border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:4px}
+input:focus,textarea:focus{outline:none;border-color:var(--ac)}
+textarea{min-height:170px;resize:vertical}
+.nav{display:flex;gap:10px;margin-top:20px}
+button.b{font:inherit;font-weight:700;border:0;border-radius:99px;padding:13px 22px;cursor:pointer;background:var(--ac);color:#fff;box-shadow:0 6px 16px #0002;transition:background .3s,opacity .2s}
+button.b.alt{background:transparent;color:var(--ac);border:2px solid var(--ac);box-shadow:none}
+button.b:disabled{opacity:.4;cursor:not-allowed}
+.nav .grow{flex:1}
+.err{color:#e11d48;font-weight:600;min-height:1.3em;margin-top:8px;font-size:.9rem}
+.score{font-size:3.4rem;font-weight:700;line-height:1.1;margin:4px 0;color:var(--ac)}
+.hide{display:none}
+</style>
+</head>
+<body>
+<main>
+<div id="hd" class="hide"><div class="top"><span class="chip" id="chip"></span><span id="lbl"></span></div><div class="bar"><i id="pb"></i></div></div>
+<div id="app"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const Q=[
+{q:"What is stress?",o:["A negative feeling that only happens when someone fails.","A reaction of the body and mind when demands feel greater than our perceived ability to handle them.","A condition that happens only to people who cannot manage their time.","A feeling that must always be avoided."],a:1},
+{q:"Rafi has an upcoming mathematics test. He feels challenged and starts studying a little every day. This is an example of…",o:["Distress","Eustress","Maladaptive coping","Emotional avoidance"],a:1},
+{q:"Which of the following is an example of a physical sign of stress?",o:["Overthinking about the future.","Feeling jealous of a classmate.","Becoming easily annoyed.","Having a stomachache or difficulty sleeping."],a:3},
+{q:"According to the thought pathway, what is the correct sequence?",o:["Event → Thought → Feeling → Behavior","Feeling → Event → Behavior → Thought","Behavior → Feeling → Event → Thought","Thought → Behavior → Event → Feeling"],a:0},
+{q:"Which of the following is an example of adaptive coping when facing several assignments?",o:["Delaying all assignments until the last minute.","Staying up all night regularly to finish everything.","Avoiding teachers when you do not understand the material.","Creating a study schedule, taking breaks, and asking for help when needed."],a:3},
+{q:"What is the main difference between adaptive and maladaptive coping?",o:["Adaptive coping always makes problems disappear immediately.","Adaptive coping helps us manage problems without harming ourselves or others, while maladaptive coping may create additional problems.","Maladaptive coping is always more effective because it provides instant relief.","Both coping strategies have exactly the same effects."],a:1},
+{q:"In the Circle of Control, which situation is something you can directly control?",o:["Your friend’s examination score.","The questions that will appear on the examination.","Your own study schedule and decision to ask for help.","Your classmates’ opinions about you."],a:2},
+{q:"Your roommate often makes noise during study time. Which response best demonstrates an I-statement?",o:["“You are so annoying. You never care about other people!”","“Everyone thinks you are too noisy.”","“If you keep doing this, I will never talk to you again.”","“When the room is noisy during study time, I find it difficult to concentrate. I hope we can agree on quiet hours.”"],a:3},
+{q:"Which of the following is the most appropriate example of a healthy support system?",o:["Depending only on one friend for every problem.","Having several sources of support, including yourself, trusted friends, school adults, family, and professionals.","Keeping every problem to yourself.","Sharing all personal problems with everyone you meet."],a:1},
+{q:"What is the purpose of the 5-4-3-2-1 grounding technique?",o:["To forget all responsibilities.","To avoid dealing with difficult situations.","To bring attention back to the present moment using our senses.","To make other people understand our feelings."],a:2}
+];
+const E=[
+{t:"Understanding Stress",p:["Explain the difference between eustress and distress. Give one example of each from academic or dormitory life."]},
+{t:"Choosing Healthy Coping Strategies",p:["Imagine that you have several assignments due in the same week, while your roommate frequently makes noise during study time.","Mention <b>three healthy coping strategies</b> you could use to manage this situation. Explain why each strategy could help."]}
+];
+const NQ=Q.length,N=NQ+E.length,PT=6,L="ABCD",EM=["🧠","🌈","💭","🌿","🎧","⚡","🧭","🗣️","🤝","🌸","✍️","🛠️"];
+const AC=["#7c3aed","#db2777","#ea580c","#0d9488","#2563eb","#e11d48"];
+const $=s=>document.querySelector(s),ans={},es=["",""],info={nm:"",cl:"",dt:""};
+let step=0,anim=true,R=null;
+const app=$("#app");
+function render(){
+  const root=document.documentElement;
+  if(step>N){return}
+  root.style.setProperty("--ac",AC[step%AC.length]);
+  const cls="card"+(anim?"":" n");anim=true;
+  if(step===0){
+    $("#hd").classList.add("hide");
+    app.innerHTML=`<div class="${cls}"><div class="em">🌤️✨</div><h1>Pretest: Stress Management</h1><p class="sub">Grade 9 SMP · HearAmica × Insan Cendekia Madani School</p>
+    <ul class="ins"><li>Pilih jawaban terbaik (A, B, C, atau D) untuk 10 soal pilihan ganda.</li><li>Jawab 2 soal esai dengan jujur dan jelas.</li><li>Kamu tidak perlu menceritakan pengalaman pribadi. Tunjukkan saja pemahamanmu!</li></ul>
+    <label class="f">Nama<input type="text" id="nm" autocomplete="off" value="${info.nm}"></label>
+    <label class="f">Kelas<input type="text" id="cl" autocomplete="off" value="${info.cl}"></label>
+    <label class="f">Tanggal<input type="text" id="dt" autocomplete="off" value="${info.dt}"></label>
+    <div class="err" id="err"></div><div class="nav"><button class="b grow" id="nx">Mulai ✨</button></div></div>`;
+    $("#nx").onclick=()=>{info.nm=$("#nm").value.trim();info.cl=$("#cl").value.trim();info.dt=$("#dt").value.trim();if(!info.nm){$("#err").textContent="Isi namamu dulu ya 😊";return}go(1)};
+    return;
+  }
+  $("#hd").classList.remove("hide");
+  $("#pb").style.width=((step-1)/N*100)+"%";
+  $("#chip").textContent=step<=NQ?"Part A · Pilihan Ganda":"Part B · Esai";
+  $("#lbl").textContent=`${step} / ${N}`;
+  const last=step===N;let body;
+  if(step<=NQ){
+    const i=step-1,x=Q[i];
+    body=`<div class="em">${EM[i]}</div><h2>${step}. ${x.q}</h2>`+x.o.map((o,j)=>`<button class="opt${ans[i]===j?" on":""}" data-j="${j}"><b>${L[j]}</b><span>${o}</span></button>`).join("");
+  }else{
+    const i=step-NQ-1,x=E[i];
+    body=`<div class="em">${EM[step-1]}</div><h2>${i+1}. ${x.t}</h2>`+x.p.map(t=>`<p>${t}</p>`).join("")+`<textarea id="ta" placeholder="Tulis jawabanmu di sini…">${es[i]}</textarea>`;
+  }
+  app.innerHTML=`<div class="${cls}">${body}<div class="err" id="err"></div><div class="nav"><button class="b alt" id="bk">← Kembali</button><button class="b grow" id="nx">${last?"Kumpulkan ✅":"Lanjut →"}</button></div></div>`;
+  $("#bk").onclick=()=>go(step-1);
+  const nx=$("#nx");
+  if(step<=NQ){
+    nx.disabled=!(step-1 in ans);
+    app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ans[step-1]=+b.dataset.j;anim=false;render()});
+    nx.onclick=()=>go(step+1);
+  }else{
+    $("#ta").oninput=e=>{es[step-NQ-1]=e.target.value};
+    nx.onclick=last?submit:()=>go(step+1);
+  }
+}
+function go(n){step=n;render();window.scrollTo(0,0)}
+function submit(){
+  const blank=es.map((t,i)=>t.trim()?-1:i+1).filter(i=>i>0);
+  if(blank.length&&!confirm("Esai no. "+blank.join(", ")+" masih kosong. Tetap kumpulkan?"))return;
+  const ok=Q.filter((x,i)=>ans[i]===x.a).length;
+  R={...info,ok,pts:ok*PT,pick:Q.map((_,i)=>L[ans[i]]),es:es.map(t=>t.trim())};
+  step=N+1;$("#hd").classList.add("hide");
+  document.documentElement.style.setProperty("--ac","#7c3aed");
+  app.innerHTML=`<div class="card"><div class="em">🎉</div><h1>Pretest selesai!</h1><p class="sub">${[R.nm,R.cl,R.dt].filter(Boolean).join(" · ")}</p>
+  <div>Skor Pilihan Ganda</div><div class="score">${R.pts} / ${NQ*PT}</div><p class="sub">${ok} dari ${NQ} soal benar. Skor esai (maks. 40) akan dinilai oleh guru.</p>
+  <hr style="border:0;border-top:2px dashed var(--line);margin:18px 0"><b>Langkah selanjutnya 📩</b>
+  <p class="sub" style="margin-top:4px">Unduh hasil pretest kamu, lalu kirim file-nya ke guru.</p>
+  <div class="nav" style="flex-wrap:wrap"><button class="b" id="bpdf">Unduh PDF</button><button class="b alt" id="btxt">Unduh Teks (.txt)</button></div>
+  <div class="err" id="dmsg" style="color:#0d9488"></div></div>`;
+  $("#bpdf").onclick=()=>{try{save(fn("pdf"),pdf())}catch(e){fail("PDF gagal dibuat. Coba unduh versi teks.")}};
+  $("#btxt").onclick=()=>save(fn("txt"),txt());
+  window.scrollTo(0,0);
+}
+function txt(){const r=R,l=["PRETEST – STRESS MANAGEMENT (Grade 9)","HearAmica x Insan Cendekia Madani School","",`Name : ${r.nm}`,`Class: ${r.cl}`,`Date : ${r.dt}`,"",`MULTIPLE CHOICE SCORE: ${r.pts} / ${NQ*PT} (${r.ok} of ${NQ} correct)`,"","PART A – Chosen answers"];
+r.pick.forEach((p,i)=>l.push(`${i+1}. ${p}`));l.push("","PART B – Essay answers (to be scored by teacher, max 40)");
+E.forEach((x,i)=>{l.push("",`${i+1}. ${x.t}`,r.es[i]||"(no answer)")});return l.join("\n")}
+const fn=ext=>"Pretest_StressManagement_"+(R.nm.replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"")||"Siswa")+"."+ext;
+const san=s=>s.replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,"-").replace(/[^\n\x20-\xFF]/g,"?");
+function pdf(){const {jsPDF}=window.jspdf,d=new jsPDF({unit:"mm",format:"a4"}),M=18,W=174;let y=20;
+const add=(t,sz=11,b=false,gap=1.5)=>{d.setFont("helvetica",b?"bold":"normal");d.setFontSize(sz);for(const l of d.splitTextToSize(san(t),W)){if(y>280){d.addPage();y=20}d.text(l,M,y);y+=sz*0.42+1.4}y+=gap};
+add("PRETEST - STRESS MANAGEMENT (Grade 9)",16,true,0);add("HearAmica x Insan Cendekia Madani School",10,false,5);
+add("Name: "+R.nm,11,true,0);add("Class: "+R.cl,11,true,0);add("Date: "+R.dt,11,true,5);
+add(`Multiple Choice Score: ${R.pts} / ${NQ*PT}  (${R.ok} of ${NQ} correct)`,12,true,5);
+add("PART A - Chosen answers",12,true);add(R.pick.map((p,i)=>`${i+1}. ${p}`).join("     "),11,false,5);
+add("PART B - Essay answers (to be scored by teacher, max 40)",12,true);
+E.forEach((x,i)=>{add(`${i+1}. ${x.t}`,11,true,0.5);add(R.es[i]||"(no answer)",11,false,3)});
+return d.output("blob")}
+function fail(t){const m=$("#dmsg");m.style.color="#e11d48";m.textContent=t}
+async function save(name,data){const m=$("#dmsg");m.style.color="#0d9488";
+ try{let dl=null;try{dl=typeof claude!=="undefined"?await claude.use("downloads"):null}catch(e){}
+ if(dl){await dl.save({filename:name,data})}
+ else{const bl=data instanceof Blob?data:new Blob([data],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),3000)}
+ m.textContent="Tersimpan: "+name+". Kirim file ini ke gurumu."}
+ catch(e){fail(e&&e.code==="declined"?"Unduhan dibatalkan.":"Unduhan gagal. Coba lagi.")}}
+render();
+</script>
+</body>
+</html>
